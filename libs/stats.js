@@ -130,18 +130,13 @@ module.exports = function(logger, portalConfig, poolConfigs){
         };
         for (var pool in stats.pools) {
             for (var worker in stats.pools[pool].workers) {
-                if (data.worker[worker] == null) {
-                    data.worker[worker] = {
-                        algos: {}
-                    }
-                    data.worker[worker].algos[stats.pools[pool].algorithm] = {
-                        hashrate: stats.pools[pool].workers[worker].hashrate
-                    }
-                } else {
-                    var totalHash = data.worker[worker].algos[stats.pools[pool].algorithm].hashrate + stats.pools[pool].workers[worker].hashrate;
-                    data.worker[worker].algos[stats.pools[pool].algorithm] = {
-                        hashrate: totalHash
-                    }
+            if (data.worker[worker] == null) {
+                data.worker[worker] = {
+                    algos: {}
+                }
+            }
+                data.worker[worker].algos[stats.pools[pool].algorithm] = {
+                    hashrate: stats.pools[pool].workers[worker].hashrateString
                 }
             }
         }

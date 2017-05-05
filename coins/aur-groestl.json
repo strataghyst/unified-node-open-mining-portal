@@ -1,0 +1,5 @@
+{
+    "name": "Auroracoin-groestl",
+    "symbol": "AUR",
+    "algorithm": "groestlmyriad"
+}

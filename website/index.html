@@ -71,8 +71,6 @@
 				</div>
 				<!-- end collapse menu -->
 			</div>
-			<!-- end pulled right: nav area -->
-			<a href="http://www.miningrigrentals.com/?ref=11848" target="_blank">MiningRigRentals</a><br>
 		</header>
 		<!-- END HEADER -->
 
@@ -91,8 +89,12 @@
 						<a href="/stats"><i class="fa fa-bar-chart-o"></i> <span class="menu-item-parent">Statistics</span></a>
 					</li>
 					<li class="{{? it.selected === 'workers' }}active{{?}}">
-						<a href="/workers"><i class="fa fa-cogs"></i> <span class="menu-item-parent">Workers</span></a>4
+						<a href="/workers"><i class="fa fa-cogs"></i> <span class="menu-item-parent">Workers</span></a>
 					</li>
+					<li	class="{{? it.selected === 'miner_stats' }}active{{?}}">	
+                    <a href="/miner"><i class="fa fa-list-alt"></i> <span class="menu-item-parent">Miner stats</span></a>
+					</li>
+					<li>
 					<li class="{{? it.selected === 'api' }}active{{?}}">
 						<a href="/api"><i class="fa fa-code"></i> <span class="menu-item-parent">API</span></a>
 					</li>

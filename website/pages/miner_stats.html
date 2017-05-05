@@ -3,7 +3,7 @@
 <meta http-equiv="refresh" content="600">
 <center>
   <br>
-                <div class="row">
+ <!--               <div class="row">
                                                 <div class="col-md-6">
 {{? it.stats.balances }}
 
@@ -38,7 +38,7 @@
 <h3><div id="Payout"></div></h3>
                         </div>
                 </div>
-                                </div> <!-- end row -->
+                                </div> <!-- end row ->
 <div>
     <div id="topCharts">
         <div class="chartWrapper">
@@ -58,9 +58,9 @@
                  <th><p id="day7"></p></th>
                 </tr>
             </thead>
-            <!-- // Table heading END -->
+            <!-- // Table heading END ->
             
-            <!-- Table body -->
+            <!-- Table body ->
             <tbody align="center">
                <tr>
                 <td><strong><span class="stats"></span></strong></td>
@@ -72,10 +72,10 @@
                 <td><strong><span class="stats6"></span></strong></td>
                </tr>
             </tbody>
-            <!-- // Table body END -->
+            <!-- // Table body END ->
             
         </table>
-        <!-- // Table END -->
+        <!-- // Table END ->
 <br><br>
     </div>
 </div>
@@ -84,7 +84,7 @@
 </div>
 </div>
 </div>
-</div>
+</div> -->
 
 
     <!-- content -->
@@ -93,7 +93,7 @@
         <!-- main col left -->
         <div class="col-sm-12">
         <div class="chartWrapper">
-                               <div class="chartLabel"><h2><strong>Balances:</strong></h2></div>
+			<div class="chartLabel"><h2><strong>Balances:</strong></h2></div>
                     <div class="panel panel-default">
                             <div class="panel-body">
                         <div class="stat-panel row">
@@ -116,7 +116,9 @@
                 </div>
             </div>
         <div class="chartWrapper">
-                               <div class="chartLabel"><h2><strong>Paid:</strong></h2></div>
+			<div class="chartLabel"><h2><strong>Paid:</strong></h2></div>
+				<div class="panel panel-default">
+					<div class="panel-body">
                         <div class="stat-panel row">
                                                               {{ for(var balance in it.stats.balances) { }}
                                                               {{if (it.stats.balances[balance].paid <= 0) { }}
@@ -140,7 +142,7 @@
 
 </div>
 {{?}}
-<script>
+<!--<script>
 window.statsSource = new EventSource("/api/live_stats");
 $(function() {
 statsSource.addEventListener('message', function (e) {
@@ -235,5 +237,5 @@ $.get("http://stratum.infernopool.com:7379/zrange/Pool_Stats:WorkerHRs:sha256:"+
 $.get("http://stratum.infernopool.com:7379/zrange/Pool_Stats:WorkerHRs:scrypt:"+a+"/-1/-1.txt",function(b){$(".scrypt").text(parseFloat(b).toFixed(2));});
 });
 }
-</script>
+</script> -->
 </center>

@@ -238,15 +238,15 @@ function SetupForPool(logger, poolOptions, setupFinished){
                     }
 
                     var addressAccount;
-
-                    txDetails.forEach(function(tx, i){
-
-                        if (i === txDetails.length - 1){
-                            addressAccount = tx.result;
-                            return;
-                        }
-
-                        var round = rounds[i];
+					txDetails.forEach(function(tx, i){                        
+					   if (i === txDetails.length - 1){
+                           if (logComponent == 'gulden') { //Speciaal voor gulden een uitzondering gemaakt
+                               addressAccount = tx.result[0][0][0];
+                           } else {
+                               addressAccount = tx.result;
+                           }
+                           return;
+                       }                        var round = rounds[i];
 
                         if (tx.error && tx.error.code === -5){
                             logger.error(logSystem, logComponent, 'Daemon reports invalid transaction: ' + round.txHash);
@@ -456,7 +456,7 @@ logger.info(logSystem, logComponent, addressAmounts);
                             callback(null, workers, rounds);
                         }
                     }, true, true);
-}, 60000);
+}, 5000);
                 };
                 trySend(0);
 

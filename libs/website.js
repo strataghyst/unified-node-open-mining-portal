@@ -1,4 +1,3 @@
-
 var fs = require('fs');
 var path = require('path');
 
@@ -43,6 +42,8 @@ module.exports = function(logger){
         'stats.html': 'stats',
         'workers.html': 'workers',
         'api.html': 'api',
+		'miner.html': 'miner',
+		'miner_stats.html': 'miner_stats',
         'admin.html': 'admin',
         'mining_key.html': 'mining_key'
     };
@@ -166,24 +167,25 @@ module.exports = function(logger){
             function(client, coinBytes, missingCoins, callback){
                 var coinsForRedis = {};
                 async.each(missingCoins, function(c, cback){
-                    var coinInfo = (function(){
-                        for (var pName in poolConfigs){
-                            if (pName.toLowerCase() === c)
-                                return {
-                                    daemon: poolConfigs[pName].paymentProcessing.daemon,
-                                    address: poolConfigs[pName].address
-                                }
-                        }
-                    })();
-                    var daemon = new Stratum.daemon.interface([coinInfo.daemon], function(severity, message){
-                        logger[severity](logSystem, c, message);
-                    });
-                    daemon.cmd('dumpprivkey', [coinInfo.address], function(result){
-                        if (result[0].error){
-                            logger.error(logSystem, c, 'Could not dumpprivkey for ' + c + ' ' + JSON.stringify(result[0].error));
-                            cback();
-                            return;
-                        }
+                   var coinInfo = (function(){
+                       for (var pName in poolConfigs){
+                           if (pName.toLowerCase() === c)
+                               return {
+                                   daemon: poolConfigs[pName].paymentProcessing.daemon,
+                                   address: poolConfigs[pName].address,
+                                   dumpprivkeyOptions: poolConfigs[pName].dumpprivkeyOptions ? poolConfigs[pName].dumpprivkeyOptions : []
+                               }
+                       }
+                   })();
+                   var daemon = new Stratum.daemon.interface([coinInfo.daemon], function(severity, message){
+                       logger[severity](logSystem, c, message);
+                   });
+                   daemon.cmd('dumpprivkey', [coinInfo.address].concat(coinInfo.dumpprivkeyOptions), function(result){
+                       if (result[0].error){
+                           logger.error(logSystem, c, 'Could not dumpprivkey for ' + c + ' ' + JSON.stringify(result[0].error));
+                           cback();
+                           return;
+                       }
 
                         var vBytePub = util.getVersionByte(coinInfo.address)[0];
                         var vBytePriv = util.getVersionByte(result[0].response)[0];
